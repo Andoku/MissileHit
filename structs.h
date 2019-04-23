@@ -23,11 +23,6 @@ struct Point {
     y(y) {}
 };
 
-inline std::ostream &operator<<(std::ostream &output, const Point &point) {
-    output << "(" << point.x << ", " << point.y << ")";
-    return output;
-}
-
 struct Speed {
     double Vx;
     double Vy;
@@ -50,18 +45,23 @@ struct StartParameters {
     double hitRadius = 0.0;
 };
 
+inline std::ostream &operator<<(std::ostream &output, const Point &point) {
+    output << "(" << point.x << ", " << point.y << ")";
+    return output;
+}
+
 inline std::istream &operator>>(std::istream &input, StartParameters &startParameters) {
-    std::cout << "Airplane height: ";
+    std::cout << "Airplane height [m] = ";
     input >> startParameters.airplaneHeight;
-    std::cout << "Airplane distance: ";
+    std::cout << "Airplane distance [m] = ";
     input >> startParameters.airplaneDistance;
-    std::cout << "Airplane speed: ";
+    std::cout << "Airplane speed [m/sec] = ";
     input >> startParameters.airplaneSpeed;
-    std::cout << "Missile speed: ";
+    std::cout << "Missile speed [m/sec] = ";
     input >> startParameters.missileSpeed;
-    std::cout << "Missile angle: ";
+    std::cout << "Missile angle [deg] = ";
     input >> startParameters.missileAngle;
-    std::cout << "Hit radius: ";
+    std::cout << "Hit radius [m] = ";
     input >> startParameters.hitRadius;
     return input;
 }
