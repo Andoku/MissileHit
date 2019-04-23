@@ -22,6 +22,7 @@ private:
     void printSimulationState() const;
     bool checkExitCondition() const;
     bool checkMissileHit() const;
+    bool checkDistanceDecreased(double previousDistance) const;
 };
 
 #endif /* WORLD_H */

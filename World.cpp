@@ -31,18 +31,16 @@ void World::runSimulation() {
     simulationTime = 0;
     
     for(;;) {
-        if(checkExitCondition()) {
-            return;
-        }
-        
         const unsigned dt = 10;
         airplane->move(dt);
         missile->move(dt);
-        
         simulationTime += dt;
-        
         printSimulationState();
         
+        if(checkExitCondition()) {
+            return;
+        }
+
         const unsigned sleepTime = 10;
         std::this_thread::sleep_for(std::chrono::milliseconds(sleepTime));
     }
@@ -66,6 +64,11 @@ bool World::checkExitCondition() const {
         std::cout << "Airplane destroyed!" << "\n";
         return true;
     }
+
+    //if(!checkDistanceDecreased()) {
+    //    std::cout << "Airplane can't be reached!" << "\n";
+    //    return true;
+    //}
     
     return false;
 }
@@ -76,4 +79,11 @@ bool World::checkMissileHit() const {
     const double distance = missileCoordinates.distance(airplaneCoordinates);
     const bool hit = distance <= startParameters.hitRadius;
     return hit;
+}
+
+bool World::checkDistanceDecreased(double previousDistance) const {
+    const Point missileCoordinates = missile->getCoordinates();
+    const Point airplaneCoordinates = airplane->getCoordinates();
+    const double distance = missileCoordinates.distance(airplaneCoordinates);
+    return distance < previousDistance;
 }
