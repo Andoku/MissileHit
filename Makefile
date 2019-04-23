@@ -1,7 +1,7 @@
 CC=g++
 CFLAGS=-c -Wall -Wextra -O2
 LDFLAGS=
-SOURCES=main.cpp
+SOURCES=main.cpp MovingObject.cpp World.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=missile_hit
 
