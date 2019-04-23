@@ -11,7 +11,7 @@ speed(speed) {}
 MovingObject::~MovingObject() {}
 
 void MovingObject::move(unsigned milliseconds) {
-    double seconds = milliseconds / 1000.0;
+    const double seconds = milliseconds / 1000.0;
     coordinates.x += speed.Vx * seconds;
     coordinates.y += speed.Vy * seconds;
 }
