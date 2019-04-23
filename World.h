@@ -21,7 +21,7 @@ private:
     
     void printSimulationState() const;
     bool checkExitCondition() const;
-    bool missileHit() const;
+    bool checkMissileHit() const;
 };
 
 #endif /* WORLD_H */

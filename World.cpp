@@ -62,7 +62,7 @@ void World::printSimulationState() const {
 }
 
 bool World::checkExitCondition() const {
-    if(missileHit()) {
+    if(checkMissileHit()) {
         std::cout << "Airplane destroyed!" << "\n";
         return true;
     }
@@ -70,7 +70,7 @@ bool World::checkExitCondition() const {
     return false;
 }
 
-bool World::missileHit() const {
+bool World::checkMissileHit() const {
     const Point missileCoordinates = missile->getCoordinates();
     const Point airplaneCoordinates = airplane->getCoordinates();
     const double distance = missileCoordinates.distance(airplaneCoordinates);
