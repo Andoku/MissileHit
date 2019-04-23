@@ -65,10 +65,10 @@ bool World::checkExitCondition() const {
         return true;
     }
 
-    //if(!checkDistanceDecreased()) {
-    //    std::cout << "Airplane can't be reached!" << "\n";
-    //    return true;
-    //}
+    if(!checkDistanceDecreased()) {
+        std::cout << "Airplane can't be reached!" << "\n";
+        return true;
+    }
     
     return false;
 }
@@ -77,13 +77,21 @@ bool World::checkMissileHit() const {
     const Point missileCoordinates = missile->getCoordinates();
     const Point airplaneCoordinates = airplane->getCoordinates();
     const double distance = missileCoordinates.distance(airplaneCoordinates);
-    const bool hit = distance <= startParameters.hitRadius;
+    const bool hit = (distance <= startParameters.hitRadius);
     return hit;
 }
 
-bool World::checkDistanceDecreased(double previousDistance) const {
+bool World::checkDistanceDecreased() const {
     const Point missileCoordinates = missile->getCoordinates();
     const Point airplaneCoordinates = airplane->getCoordinates();
     const double distance = missileCoordinates.distance(airplaneCoordinates);
-    return distance < previousDistance;
+    previousDistances.push_back(distance);
+
+    const int maxSize = 5;
+    if(previousDistances.size() < maxSize) {
+        return true;
+    }
+
+    previousDistances.pop_front();
+    return previousDistances.back() < previousDistances.front();
 }
