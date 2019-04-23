@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include <thread>
 #include <chrono>
 
@@ -50,7 +51,8 @@ void World::runSimulation() {
 void World::printSimulationState() {
     const unsigned seconds = simulationTime / 1000;
     const unsigned milliseconds = simulationTime % 1000;
-    std::cout << "time = " << seconds << "." << milliseconds << ", ";
+    std::cout << "time = " << seconds << ".";
+    std::cout << std::setfill('0') << std::setw(3) << milliseconds << ", ";
     const Point airplaneCoordinates = airplane->getCoordinates();
     std::cout << "airplane = " << airplaneCoordinates << ", ";
     const Point missileCoordinates = missile->getCoordinates();
