@@ -19,9 +19,9 @@ struct Point {
     y(y) {}
     
     double distance(Point point) const {
-        const double x_diff = x - point.x;
-        const double y_diff = y - point.y;
-        return std::sqrt(x_diff * x_diff + y_diff * y_diff);
+        const double xDifference = x - point.x;
+        const double yDifference = y - point.y;
+        return std::sqrt(xDifference * xDifference + yDifference * yDifference);
     }
 };
 
