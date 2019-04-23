@@ -14,22 +14,20 @@ struct Point {
     double x;
     double y;
     
-    Point() :
-    x(0),
-    y(0) {}
-    
     Point(double x, double y) :
     x(x),
     y(y) {}
+    
+    double distance(Point point) const {
+        const double x_diff = x - point.x;
+        const double y_diff = y - point.y;
+        return std::sqrt(x_diff * x_diff + y_diff * y_diff);
+    }
 };
 
 struct Speed {
     double Vx;
     double Vy;
-    
-    Speed() :
-    Vx(0),
-    Vy(0) {}
     
     Speed(double speedModulus, double angle) :
     Vx(std::cos(angle * M_PI / 180.0) * speedModulus),
