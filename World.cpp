@@ -48,7 +48,7 @@ void World::runSimulation() {
     }
 }
 
-void World::printSimulationState() {
+void World::printSimulationState() const {
     const unsigned seconds = simulationTime / 1000;
     const unsigned milliseconds = simulationTime % 1000;
     std::cout << "time = " << seconds << ".";

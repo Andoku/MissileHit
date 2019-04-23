@@ -19,7 +19,7 @@ private:
     StartParameters startParameters;
     unsigned simulationTime;
     
-    void printSimulationState();
+    void printSimulationState() const;
     bool checkExitCondition() const;
     bool missileHit() const;
 };
