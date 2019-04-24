@@ -1,7 +1,6 @@
 #include <iostream>
 #include <iomanip>
 #include <thread>
-#include <chrono>
 
 #include "World.h"
 #include "structs.h"
@@ -10,7 +9,7 @@ World::World() :
 airplane(new MovingObject()),
 missile(new MovingObject()),
 startParameters(),
-simulationTime(0) {}
+simulationStart(Clock::now()) {}
 
 World::~World() {}
 
@@ -28,13 +27,16 @@ void World::createWorld() {
 }
 
 void World::runSimulation() {
-    simulationTime = 0;
+    Clock::time_point calcTime = Clock::now();
+    simulationStart = Clock::now();
     
     for(;;) {
-        const unsigned dt = 10;
+        const auto timeDiff = Clock::now() - calcTime;
+        const unsigned dt = std::chrono::duration_cast<milliseconds>(timeDiff).count();
         airplane->move(dt);
         missile->move(dt);
-        simulationTime += dt;
+        calcTime = Clock::now();
+        
         printSimulationState();
         
         if(checkExitCondition()) {
@@ -47,10 +49,11 @@ void World::runSimulation() {
 }
 
 void World::printSimulationState() const {
-    const unsigned seconds = simulationTime / 1000;
-    const unsigned milliseconds = simulationTime % 1000;
-    std::cout << "time = " << seconds << ".";
-    std::cout << std::setfill('0') << std::setw(3) << milliseconds << ", ";
+    const auto timeDiff = Clock::now() - simulationStart;
+    const unsigned sec = std::chrono::duration_cast<seconds>(timeDiff).count();
+    const unsigned millisec = std::chrono::duration_cast<milliseconds>(timeDiff).count() % 1000;
+    std::cout << "time = " << sec << ".";
+    std::cout << std::setfill('0') << std::setw(3) << millisec << ", ";
     const Point airplaneCoordinates = airplane->getCoordinates();
     std::cout << "airplane = " << airplaneCoordinates << ", ";
     const Point missileCoordinates = missile->getCoordinates();
@@ -87,7 +90,7 @@ bool World::checkDistanceDecreased() const {
     const double distance = missileCoordinates.distance(airplaneCoordinates);
     previousDistances.push_back(distance);
 
-    const int maxSize = 5;
+    const int maxSize = 100;
     if(previousDistances.size() < maxSize) {
         return true;
     }

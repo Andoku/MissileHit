@@ -3,6 +3,7 @@
 
 #include <deque>
 #include <memory>
+#include <chrono>
 
 #include "MovingObject.h"
 
@@ -18,7 +19,12 @@ private:
     std::unique_ptr<MovingObject> airplane;
     std::unique_ptr<MovingObject> missile;
     StartParameters startParameters;
-    unsigned simulationTime;
+    
+    typedef std::chrono::high_resolution_clock Clock;
+    typedef std::chrono::milliseconds milliseconds;
+    typedef std::chrono::seconds seconds;
+    Clock::time_point simulationStart;
+    
     mutable std::deque<double> previousDistances;
     
     void printSimulationState() const;
