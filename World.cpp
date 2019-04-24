@@ -61,6 +61,7 @@ void World::printSimulationState() const {
     const unsigned millisec = std::chrono::duration_cast<milliseconds>(timeDiff).count() % 1000;
     std::cout << "time = " << sec << ".";
     std::cout << std::setfill('0') << std::setw(3) << millisec << ", ";
+    std::cout << std::fixed << std::setprecision(1);
     const Point airplaneCoordinates = airplane->getCoordinates();
     std::cout << "airplane = " << airplaneCoordinates << ", ";
     const Point missileCoordinates = missile->getCoordinates();
