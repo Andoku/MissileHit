@@ -1,9 +1,3 @@
-/** 
- * @file structs.h
- * @author anton
- * @date April 23, 2019
- */
-
 #ifndef STRUCTS_H
 #define STRUCTS_H
 
