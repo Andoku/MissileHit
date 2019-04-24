@@ -25,6 +25,7 @@ private:
     typedef std::chrono::seconds seconds;
     Clock::time_point simulationStart;
     
+    mutable Clock::time_point printTime;
     mutable std::deque<double> previousDistances;
     
     void printSimulationState() const;

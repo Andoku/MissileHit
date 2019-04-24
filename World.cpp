@@ -9,7 +9,8 @@ World::World() :
 airplane(new MovingObject()),
 missile(new MovingObject()),
 startParameters(),
-simulationStart(Clock::now()) {}
+simulationStart(Clock::now()),
+printTime(Clock::now()) {}
 
 World::~World() {}
 
@@ -49,6 +50,12 @@ void World::runSimulation() {
 }
 
 void World::printSimulationState() const {
+    const unsigned timeout = 200;
+    const auto printDifference = Clock::now() - printTime;
+    if(std::chrono::duration_cast<milliseconds>(printDifference).count() < timeout) {
+        return;
+    }
+    
     const auto timeDiff = Clock::now() - simulationStart;
     const unsigned sec = std::chrono::duration_cast<seconds>(timeDiff).count();
     const unsigned millisec = std::chrono::duration_cast<milliseconds>(timeDiff).count() % 1000;
@@ -60,6 +67,7 @@ void World::printSimulationState() const {
     std::cout << "missile = " << missileCoordinates << ", ";
     const double distance = missileCoordinates.distance(airplaneCoordinates);
     std::cout << "distance = " << distance << "\n";
+    printTime = Clock::now();
 }
 
 bool World::checkExitCondition() const {
